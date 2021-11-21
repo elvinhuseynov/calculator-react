@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Card, Col, Row } from "antd";
+import { useReactive } from "ahooks";
+import "antd/dist/antd.css";
+import { Screen, Buttons } from "./components";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export interface IState {
+  operation: string;
+  firstDigit: string;
+  secondDigit: string;
+  evaluation: string;
 }
+
+const App = () => {
+  const state = useReactive<IState>({
+    operation: "",
+    firstDigit: "",
+    secondDigit: "",
+    evaluation: "",
+  });
+
+  return (
+    <Row style={{ background: "linear-gradient(to right, #fdc830, #f37335)" }}>
+      <Col span={12} offset={6}>
+        <Row justify="center" style={{ height: "100vh" }} align="middle">
+          <Card title={<Screen state={state} />} style={{ width: 350 }}>
+            <Buttons state={state} />
+          </Card>
+        </Row>
+      </Col>
+    </Row>
+  );
+};
 
 export default App;
